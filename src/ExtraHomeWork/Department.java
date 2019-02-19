@@ -19,4 +19,7 @@ public class Department {
         this.seller = seller;
     }
 
+    public People getSeller() {
+        return this.seller;
+    }
 }

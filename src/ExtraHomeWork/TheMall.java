@@ -16,9 +16,10 @@ public class TheMall {
     private static List<Buyer> buyers = new ArrayList();            // перечень покупателей текущего месяца
     private static Map<String, CashRegister> cashRegisterForDepartment = new HashMap<>();
 
-    private static boolean toBeContinued;
+    private static boolean toBeContinued=true;
+
     private static int maxBuyersCount = 3000; // предположим, что магазин может обслужить до 3000 покупателей в месяц
-    private static int profitShare = 10; // доля прибыли магазина в общем чеке покупателей
+    private static int profitShare = 8; // доля прибыли магазина в общем чеке покупателей
 
     public static void main(String[] args) {
         // Создаем структуру магазина - отделы и кассы
@@ -35,32 +36,52 @@ public class TheMall {
 
         // На каждом шагу цикла магазин отрабатывает условный месяц. Подсчитываются доходы от посетителей и расходы на персонал
         Scanner scanner = new Scanner(System.in);
+        int userChoice;
         do {
             letBuyersIn();      // формируется случайный поток покупателей
             for (CashRegister cr: cashiers) cr.thisMonthBuyers=0; // обнуляем счетчики прошедших через каждую кассу клиентов
             printStatistics();  // генерируется и печатается месячный результат
 
-            System.out.println("Выберите дальнейшее действие:" );
-            System.out.println("0. Выход");
-            switch(scanner.nextInt()){
-                case 0: {
-                    toBeContinued = false;
-                    break;
-                }
-            }
+            do {
+                System.out.println("Выберите дальнейшее действие:");
+                System.out.println("0. Выход");
+                System.out.println("1. Список сотрудников");
 
-        } while(toBeContinued == true);
+
+                System.out.println("9. Следующий месяц");
+                userChoice = scanner.nextInt();
+                switch (userChoice) {
+                    case 0: { // выбран выход из приложения
+                        break;
+                    }
+                    case 1: { // выбран показ списка сотрудников
+                        System.out.println("Кассиры:");
+                        for (CashRegister cash : cashiers) cash.getCashier().printInfo();
+                        System.out.println("\nПродавцы отделов:");
+                        for (Department dep : departments) dep.getSeller().printInfo();
+                        break;
+                    }
+                }
+            }while(userChoice != 0 && userChoice != 9);
+        } while(userChoice != 0);
     }
 
     // Расчет и вывод результатов работы за месяц
     private static void printStatistics() {
         float totalIncome = 0;
         float totalFinancialResult = 0;
+        int totalMonthBuyers =0, i =1;
+        String s = "";
         for(Buyer buyer: buyers)
             totalIncome += cashRegisterForDepartment.get(buyer.getDepartment()).process(buyer);
+        for (CashRegister cash: cashiers) {
+            totalMonthBuyers += cash.thisMonthBuyers;
+            s += " Касса "+i+": "+cash.thisMonthBuyers+" из возможных "+cash.getMaxBuyers();
+            i++;
+        }
         totalFinancialResult = totalIncome / 100 * profitShare - HR.getTotalMonthSalary();
         System.out.println("РЕЗУЛЬТАТЫ РАБОТЫ ЗА МЕСЯЦ:");
-        System.out.println("Магазин посетило " + buyers.size() + " покупателей.");
+        System.out.println("Магазин посетило " + buyers.size() + " покупателей. Из них обслужено " + totalMonthBuyers+" ("+s+")");
         System.out.println("Общая выручка составила $" + totalIncome +", прибыль равна $" + totalIncome/100*profitShare);
         System.out.println("На зарплату сотрудников потрачено $"+HR.getTotalMonthSalary());
         System.out.println("Общий месячный результат работы магазина = $" + totalFinancialResult);

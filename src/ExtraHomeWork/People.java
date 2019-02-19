@@ -44,6 +44,9 @@ public class People {
             this.name = firstFemaleNames[rnd.nextInt(firstFemaleNames.length)] + " " + lastFemaleNames[rnd.nextInt(lastFemaleNames.length)];
         }
         this.birthYear = 2019-(rnd.nextInt(100));
+        this.phoneNumber = "+7(" +phoneCodes[rnd.nextInt(phoneCodes.length)]+ ")" + rnd.nextInt(10) +
+                rnd.nextInt(10) + rnd.nextInt(10) + "-" + rnd.nextInt(10) + rnd.nextInt(10) +
+                "-" + rnd.nextInt(10) + rnd.nextInt(10);
         this.skill = rnd.nextFloat() / 2 + 0.5f;
     };
 
