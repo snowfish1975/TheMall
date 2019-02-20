@@ -2,46 +2,31 @@ package ExtraHomeWork;
 
 // Класс "Место кссира
 
-public class CashRegister {
+class CashRegister {
 
-    private String name;
-    private People cashier;
-    private int maxBuyers;
-    public int thisMonthBuyers;
+    // Поля класса "Касса"
+    private String name;    // наименование (Касса 1, Касса 2)
+    private People cashier; // сотрудник-кассир
+    private int maxBuyers;  // максимальное количество покупателей, которое может обслужить этот кассир в месяц
+    int thisMonthBuyers;    // счетчик покупателей в этом месяце
 
-
-    public CashRegister(String name, People cashier) {
+    CashRegister(String name, People cashier) {
         this.name = name;
         this.cashier = cashier;
-        this.maxBuyers = (int) (1000*cashier.getSkill());
+        this.setMaxBuyers((int) (1000*cashier.getSkill()));
         this.thisMonthBuyers = 0;
     }
 
-    public String getName() {
-        return name;
-    }
+    People getCashier() { return cashier; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    void setCashier(People cashier) { this.cashier = cashier; }
 
-    public People getCashier() {
-        return cashier;
-    }
+    int getMaxBuyers() { return maxBuyers; }
 
-    public void setCashier(People cashier) {
-        this.cashier = cashier;
-    }
+    private void setMaxBuyers(int maxBuyers) { this.maxBuyers = maxBuyers; }
 
-    public int getMaxBuyers() {
-        return maxBuyers;
-    }
-
-    public void setMaxBuyers(int maxBuyers) {
-        this.maxBuyers = maxBuyers;
-    }
-
-    public float process(Buyer buyer) {
+    float process(Buyer buyer) {
+        this.setMaxBuyers ((int) (1000*cashier.getSkill()));
         if (thisMonthBuyers < maxBuyers){
             this.thisMonthBuyers++;
             return buyer.getCheckValue();

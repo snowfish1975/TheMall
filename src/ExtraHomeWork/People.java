@@ -1,40 +1,41 @@
 package ExtraHomeWork;
 
-import java.util.Arrays;
 import java.util.Random;
 
-public class People {
+import static ExtraHomeWork.HR.currentID;
 
-    private String[] firstMaleNames = {"Алексей","Александр","Андрей","Борис","Владимир","Виктор","Валерий","Герман","Глеб","Григорий",
-            "Дмитрий","Даниил","Денис","Евгений","Иван","Илья","Кирилл","Константин","Леонид","Матвей","Николай","Олег",
-            "Петр","Павел","Роман","Сергей","Семен","Тимофей","Федор","Юрий","Яков"};
-    private String[] lastMaleNames = {"Иванов","Петров","Сидоров","Алексеев","Зимин","Туманов","Лемехов","Тихомиров","Тихонов",
-            "Еремин","Пушкин","Лермонтов","Блок","Толстой","Соловьев","Репин","Путин","Медведев","Чубайс","Навальный",
-            "Семенов","Ложкин","Мамин","Папин"};
+class People {
 
-    private String[] firstFemaleNames = {"Алла","Анна","Алена","Алина","Арина","Влада","Вероника","Виктория","Галина","Диана",
-            "Елена","Екатерина","Жанна","Зинаида","Зоя","Илона","Ирина","Кристина","Клавдия","Ксения","Лидия","Леся","Людмила",
-            "Марина","Мария","Маргарита","Наталья","Нина","Ольга","Оксана","Полина","София","Светлана","Татьяна","Тамара","Ульяна",
-            "Фаина","Юлия","Яна"};
-    private String[] lastFemaleNames = {"Иванова","Петрова","Сидорова","Алексеева","Зимина","Туманова","Лемехова","Тихомирова","Тихонова",
-            "Еремина","Пушкина","Лермонтова","Блок","Толстая","Соловьева","Репина","Путина","Медведева","Чубайс","Навальная",
-            "Семенова","Ложкина","Мамина","Папина"};
+    private static final String GENDER_MALE = "Мужчина";
+    private static final String GENDER_FEMALE = "Женщина";
 
-    private String[] phoneCodes = {"900","902","905","909","910","911","912","914","915","920","924","930","999"};
+    // Основные поля класса "People"
+    private int id;             // уникальный табельный номер
+    private String name;        // имя сотрудника
+    private String phoneNumber; // номер телефона сотрудника
+    private String gender;      // пол сотрудника
+    private int birthYear;      // год рождения сотрудника
+    private float skill;        // эффективность сотрудника, у нового сотрудника - от 0.5 до 1.0
+    private float salary;       // текущая зарплата сотрудника
 
-    public static final String GENDER_MALE = "Мужчина";
-    public static final String GENDER_FEMALE = "Женщина";
+    People (){
 
-    private String name;
-    private String phoneNumber;
-    private String gender;
-    private int birthYear;
-    private float skill;
+        String[] firstMaleNames = {"Алексей","Александр","Андрей","Борис","Владимир","Виктор","Валерий","Герман","Глеб","Григорий",
+                "Дмитрий","Даниил","Денис","Евгений","Иван","Илья","Кирилл","Константин","Леонид","Матвей","Николай","Олег",
+                "Петр","Павел","Роман","Сергей","Семен","Тимофей","Федор","Юрий","Яков"};
+        String[] lastMaleNames = {"Иванов","Петров","Сидоров","Алексеев","Зимин","Туманов","Лемехов","Тихомиров","Тихонов",
+                "Еремин","Пушкин","Лермонтов","Блок","Толстой","Соловьев","Репин","Путин","Медведев","Чубайс","Навальный",
+                "Семенов","Ложкин","Мамин-Сибиряк","Папин"};
+        String[] firstFemaleNames = {"Алла","Анна","Алена","Алина","Арина","Влада","Вероника","Виктория","Галина","Диана",
+                "Елена","Екатерина","Жанна","Зинаида","Зоя","Илона","Ирина","Кристина","Клавдия","Ксения","Лидия","Леся","Людмила",
+                "Марина","Мария","Маргарита","Наталья","Нина","Ольга","Оксана","Полина","София","Светлана","Татьяна","Тамара","Ульяна",
+                "Фаина","Юлия","Яна"};
+        String[] lastFemaleNames = {"Иванова","Петрова","Сидорова","Алексеева","Зимина","Туманова","Лемехова","Тихомирова","Тихонова",
+                "Еремина","Пушкина","Лермонтова","Блок","Толстая","Соловьева","Репина","Путина","Медведева","Чубайс","Навальная",
+                "Семенова","Ложкина","Мамина","Папина"};
+        String[] phoneCodes = {"900","902","905","909","910","911","912","914","915","920","924","930","999"};
 
-
-    private float salary;
-
-    public People (){
+        this.id = currentID++;
         Random rnd = new Random();
         this.gender = rnd.nextInt(10) > 5 ? GENDER_MALE : GENDER_FEMALE;
         if (this.gender.equals(GENDER_MALE)) {
@@ -48,38 +49,23 @@ public class People {
                 rnd.nextInt(10) + rnd.nextInt(10) + "-" + rnd.nextInt(10) + rnd.nextInt(10) +
                 "-" + rnd.nextInt(10) + rnd.nextInt(10);
         this.skill = rnd.nextFloat() / 2 + 0.5f;
-    };
-
-    public String getName(){
-        return this.name;
     }
 
-    public String getPhone() {
-        return this.phoneNumber;
-    }
+    int getAge() { return 2019-this.birthYear; }
 
-    public int getAge() {
-        return 2019-this.birthYear;
-    }
+    int getID() { return this.id; }
 
-    public String getGender() {
-        return this.gender;
-    }
-    public void setSalary(float salary) {
-        this.salary = salary;
-    }
+    void setSalary(float salary) { this.salary = salary; }
 
-    public float getSalary() {
-        return this.salary;
-    }
+    float getSalary() { return this.salary; }
 
-    public float getSkill() {
-        return this.skill;
-    }
+    float getSkill() { return this.skill; }
 
-    public void printInfo(){
+    void setSkill(float skill){ this.skill = skill; }
+
+    void printInfo(){
         System.out.println("-------------------------------------------------");
-        System.out.println("Имя сотрудника:         "+this.name);
+        System.out.println("Сотрудник:              id#"+this.id+" "+this.name);
         System.out.println("Данные:                 "+this.gender+", "+(2019-this.birthYear)+" лет.");
         System.out.println("Номер телефона:         "+this.phoneNumber);
         System.out.println("Эффективность:          "+this.skill);

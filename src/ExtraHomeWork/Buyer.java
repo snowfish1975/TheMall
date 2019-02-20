@@ -5,24 +5,22 @@ import java.util.Random;
 import static ExtraHomeWork.TheMall.departmentNames;
 
 // Класс, представляющий покупателя магазина
-public class Buyer {
-
+class Buyer {
 
     private String department;  // отдел, в который пришел покупатель
-    private float checkValue;   // сумма покупок покупателя
-    public static float maxCheckValue = 150f;
 
-    public Buyer() {
+    private float checkValue;   // сумма покупок покупателя
+    private static float maxCheckValue = 150f;
+
+    Buyer() {
         Random rnd = new Random();
         this.department = departmentNames[rnd.nextInt(departmentNames.length)];
-        this.checkValue = (float) rnd.nextFloat()*maxCheckValue;
+        this.checkValue = rnd.nextFloat()*maxCheckValue;
     }
 
-    public String getDepartment() {
-        return department;
-    }
+    String getDepartment() { return department; }
 
-    public float getCheckValue(){
-        return this.checkValue;
-    }
+    float getCheckValue(){ return this.checkValue; }
+
+   void setCheckValue(float checkValue) { this.checkValue = checkValue; }
 }

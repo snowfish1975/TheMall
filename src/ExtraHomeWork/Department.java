@@ -1,25 +1,18 @@
 package ExtraHomeWork;
 
 // Класс, представляющий отдел в магазине
-public class Department {
+class Department {
 
     private String name;    // Название отдела
     private People seller;  // Продавец отдела
 
-    public Department(String name, People seller) {
+    // Конструктор, устанавливаяющий название отдела и назначающий продавца
+    Department(String name, People seller) {
         this.name = name;
         this.seller = seller;
     }
 
-    public void setName(String name){
-        this.name = name;
-    }
+    void setSeller(People seller){ this.seller = seller; }
 
-    public void setSeller(People seller){
-        this.seller = seller;
-    }
-
-    public People getSeller() {
-        return this.seller;
-    }
+    People getSeller() { return this.seller; }
 }
