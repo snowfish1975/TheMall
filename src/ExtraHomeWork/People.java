@@ -35,7 +35,7 @@ class People {
                 "Семенова","Ложкина","Мамина","Папина"};
         String[] phoneCodes = {"900","902","905","909","910","911","912","914","915","920","924","930","999"};
 
-        this.id = currentID++;
+        this.id = ++currentID;
         Random rnd = new Random();
         this.gender = rnd.nextInt(10) > 5 ? GENDER_MALE : GENDER_FEMALE;
         if (this.gender.equals(GENDER_MALE)) {

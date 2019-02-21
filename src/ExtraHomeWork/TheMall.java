@@ -4,8 +4,6 @@ package ExtraHomeWork;
 
 import java.util.*;
 
-import static ExtraHomeWork.HR.staffList;
-
 // Базовый класс "TheMall"
 public class TheMall {
 
@@ -16,7 +14,7 @@ public class TheMall {
     static List<Department> departments = new ArrayList();  // список отделов магазина
     private static String[] cashierNames = {"Касса 1", "Касса 2"};
     static List<CashRegister> cashiers = new ArrayList();   // список работающих касс
-    private static List<Buyer> buyers = new ArrayList();            // перечень покупателей текущего месяца
+    private static List<Buyer> buyers = new ArrayList();    // перечень покупателей текущего месяца
     private static Map<String, CashRegister> cashRegisterForDepartment = new HashMap<>();
 
     private static int maxBuyersCount = 3000; // предположим, что магазин может обслужить до 3000 покупателей в месяц
@@ -49,7 +47,7 @@ public class TheMall {
                 System.out.println("3. Запустить серию треннингов с персоналом (стоимость $1 000, возможный эффект - увеличение эффективности каждого сотрудника)");
                 System.out.println("4. Сменить поставщиков (стоимость $3 000, возможный эффект - увеличение среднего чека покупателя)");
                 System.out.println("5. Уволить и заменить новым сотрудника (стоимость $500)");
-                System.out.println("6. Добавить 1 кассу (стоимость $10 000)");
+                if (cashiers.size()<4) System.out.println("6. Добавить 1 кассу (стоимость $10 000)");
                 System.out.println("----------------------------------------------------------------------------------------------------------------------------");
 
                 System.out.println("9. Следующий месяц");
@@ -98,19 +96,21 @@ public class TheMall {
                             System.out.println("Остаток прибыли магазина = $"+totalProfit);
                         }
                         else System.out.println("Недостаточно средств для поиска нового сотрудника.");
+                        break;
                     }
                     case 6: { // добавить кассу
-                        if(totalProfit >= addCashRegisterCost) {
-                            if(cashiers.size()<4) {
+                        if(cashiers.size()<4) {
+                            if(totalProfit >= addCashRegisterCost) {
                                 totalProfit -= addCashRegisterCost;
                                 cashiers.add(new CashRegister("Касса " + cashiers.size() + 1, hr.hire(25, 50, 1200)));
                                 setCashToDepDependency();
                                 System.out.println("Касса добавлена. Сотрудник нанят.");
                                 System.out.println("Остаток прибыли магазина = $" + totalProfit);
                             }
-                            else System.out.println("ВНИМАНИЕ!!! Достигнут предел количества касс, равный количеству отделов магазина.");
+                            else System.out.println("Недостаточно средств для добавления кассы.");
                         }
-                        else System.out.println("Недостаточно средств для поиска нового сотрудника.");
+                        else System.out.println("ВНИМАНИЕ!!! Достигнут предел количества касс, равный количеству отделов магазина.");
+                        break;
                     }
                 }
             }while(userChoice != 0 && userChoice != 9);

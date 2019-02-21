@@ -1,6 +1,6 @@
 package ExtraHomeWork;
 
-// Класс, имплементирующий работу с персоналом
+// Класс, реализующий работу с персоналом
 
 import java.util.ArrayList;
 import java.util.List;
