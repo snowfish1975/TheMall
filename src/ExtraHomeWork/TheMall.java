@@ -11,19 +11,18 @@ public class TheMall {
     private static float totalProfit=0;
 
     static String[] departmentNames = {"Мясной", "Молочный", "Бакалея", "Напитки"};
-    static List<Department> departments = new ArrayList();  // список отделов магазина
+    static List<Department> departments = new ArrayList<>();  // список отделов магазина
     private static String[] cashierNames = {"Касса 1", "Касса 2"};
-    static List<CashRegister> cashiers = new ArrayList();   // список работающих касс
-    private static List<Buyer> buyers = new ArrayList();    // перечень покупателей текущего месяца
+    static List<CashRegister> cashiers = new ArrayList<>();   // список работающих касс
+    private static List<Buyer> buyers = new ArrayList<>();    // перечень покупателей текущего месяца
     private static Map<String, CashRegister> cashRegisterForDepartment = new HashMap<>();
 
     private static int maxBuyersCount = 3000; // предположим, что магазин может обслужить до 3000 покупателей в месяц
-    private static int profitShare = 8; // доля прибыли магазина в общем чеке покупателей
-    private static final float adsCost = 1000;
-    private static final float trainCost = 1000;
-    private static final float changeSupplyersCost = 3000;
-    private static final float changeStaffCost = 500;
-    private static final float addCashRegisterCost = 10000;
+    private static final float ADS_COST = 1000;
+    private static final float TRAIN_COST = 1000;
+    private static final float CHANGE_SUPPLYERS_COST = 3000;
+    private static final float CHANGE_STAFF_COST = 500;
+    private static final float ADD_CASH_REGISTER_COST = 10000;
 
     public static void main(String[] args) {
         // Создаем структуру магазина - отделы и кассы
@@ -61,8 +60,8 @@ public class TheMall {
                         break;
                     }
                     case 2: { // запуск рекламы
-                        if (totalProfit >= adsCost) {
-                            totalProfit -= adsCost;
+                        if (totalProfit >= ADS_COST) {
+                            totalProfit -= ADS_COST;
                             doAds();
                             System.out.println("Остаток прибыли магазина = $"+totalProfit);
                         }
@@ -70,8 +69,8 @@ public class TheMall {
                         break;
                     }
                     case 3: {
-                        if (totalProfit >= trainCost) {
-                            totalProfit -= trainCost;
+                        if (totalProfit >= TRAIN_COST) {
+                            totalProfit -= TRAIN_COST;
                             hr.trainStaff();
                             System.out.println("Остаток прибыли магазина = $"+totalProfit);
                         }
@@ -79,8 +78,8 @@ public class TheMall {
                         break;
                     }
                     case 4: {
-                        if (totalProfit >= changeSupplyersCost) {
-                            totalProfit -= changeSupplyersCost;
+                        if (totalProfit >= CHANGE_SUPPLYERS_COST) {
+                            totalProfit -= CHANGE_SUPPLYERS_COST;
                             changeSuppliers();
                             System.out.println("Остаток прибыли магазина = $"+totalProfit);
                         }
@@ -88,8 +87,8 @@ public class TheMall {
                         break;
                     }
                     case 5: { // сменить сотрудника
-                        if(totalProfit >= changeStaffCost) {
-                            totalProfit -= changeStaffCost;
+                        if(totalProfit >= CHANGE_STAFF_COST) {
+                            totalProfit -= CHANGE_STAFF_COST;
                             hr.printStaffList();
                             System.out.println("Введите ID сотрудника, которого нужно заменить: ");
                             hr.changeStaff(scanner.nextInt());
@@ -100,8 +99,8 @@ public class TheMall {
                     }
                     case 6: { // добавить кассу
                         if(cashiers.size()<4) {
-                            if(totalProfit >= addCashRegisterCost) {
-                                totalProfit -= addCashRegisterCost;
+                            if(totalProfit >= ADD_CASH_REGISTER_COST) {
+                                totalProfit -= ADD_CASH_REGISTER_COST;
                                 cashiers.add(new CashRegister("Касса " + cashiers.size() + 1, hr.hire(25, 50, 1200)));
                                 setCashToDepDependency();
                                 System.out.println("Касса добавлена. Сотрудник нанят.");
@@ -151,19 +150,25 @@ public class TheMall {
         float totalIncome = 0;
         float totalMonthResult;
         int totalMonthBuyers =0, i =1;
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for(Buyer buyer: buyers)
             totalIncome += cashRegisterForDepartment.get(buyer.getDepartment()).process(buyer);
         for (CashRegister cash: cashiers) {
             totalMonthBuyers += cash.thisMonthBuyers;
-            s += " Касса "+ i +": "+cash.thisMonthBuyers+" из возможных " + cash.getMaxBuyers();
+            s.append(" Касса ")
+                    .append(i).append(": ")
+                    .append(cash.thisMonthBuyers)
+                    .append(" из возможных ")
+                    .append(cash.getMaxBuyers());
             i++;
         }
+        // доля прибыли магазина в общем чеке покупателей
+        int profitShare = 8;
         totalMonthResult = totalIncome / 100 * profitShare - hr.getTotalMonthSalary();
         totalProfit += totalMonthResult;
         System.out.println("РЕЗУЛЬТАТЫ РАБОТЫ ЗА МЕСЯЦ:");
         System.out.println("Магазин посетило " + buyers.size() + " покупателей. Из них обслужено " + totalMonthBuyers+" ("+s+")");
-        System.out.println("Общая выручка составила $" + totalIncome +", прибыль равна $" + totalIncome/100*profitShare +"("+ profitShare +"% от выручки)");
+        System.out.println("Общая выручка составила $" + totalIncome +", прибыль равна $" + totalIncome/100* profitShare +"("+ profitShare +"% от выручки)");
         System.out.println("На зарплату сотрудников потрачено $"+hr.getTotalMonthSalary());
         System.out.println("Месячный результат работы = $" + totalMonthResult+ " Общая прибыль/убыток = $"+totalProfit);
     }

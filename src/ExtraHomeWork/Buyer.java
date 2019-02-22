@@ -10,12 +10,12 @@ class Buyer {
     private String department;  // отдел, в который пришел покупатель
 
     private float checkValue;   // сумма покупок покупателя
-    private static float maxCheckValue = 150f;
 
     Buyer() {
         Random rnd = new Random();
         this.department = departmentNames[rnd.nextInt(departmentNames.length)];
-        this.checkValue = rnd.nextFloat()*maxCheckValue;
+        float maxCheckValue = 150f;
+        this.checkValue = rnd.nextFloat()* maxCheckValue;
     }
 
     String getDepartment() { return department; }

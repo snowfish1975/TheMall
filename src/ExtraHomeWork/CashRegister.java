@@ -4,14 +4,14 @@ package ExtraHomeWork;
 
 class CashRegister {
 
-    // Поля класса "Касса"
-    private String name;    // наименование (Касса 1, Касса 2)
     private People cashier; // сотрудник-кассир
     private int maxBuyers;  // максимальное количество покупателей, которое может обслужить этот кассир в месяц
     int thisMonthBuyers;    // счетчик покупателей в этом месяце
 
     CashRegister(String name, People cashier) {
-        this.name = name;
+        // Поля класса "Касса"
+        // наименование (Касса 1, Касса 2)
+        String name1 = name;
         this.cashier = cashier;
         this.setMaxBuyers((int) (1000*cashier.getSkill()));
         this.thisMonthBuyers = 0;

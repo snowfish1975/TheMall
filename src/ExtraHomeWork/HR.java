@@ -10,7 +10,7 @@ import static ExtraHomeWork.TheMall.departments;
 
 class HR {
 
-    static List<People> staffList = new ArrayList<>();
+    private static List<People> staffList = new ArrayList<>();
     static int currentID=0;
 
     // Метод "подбора" нового сотрудника
